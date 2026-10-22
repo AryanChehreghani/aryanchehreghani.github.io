@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سامانه ارزیابی امنیتی و پیشگیری از استیلرها | پلتفرم سازمانی</title>
+    <meta name="description" content="سامانه جامع ممیزی آگاهی امنیتی، ارزیابی چندمرحله‌ای ریسک نفوذ اینفواستیلرها و سنجش تاب‌آوری سایبری">
+    <link rel="icon" type="image/jpeg" href="logo.jpg">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Corporate Header -->
+    <header class="app-header">
+        <div class="container header-inner">
+            <div class="brand-wrapper">
+                <div class="brand-logo-box">
+                    <img src="logo.jpg" alt="Anti-Stealer Shield" class="brand-logo-img">
+                </div>
+                <div>
+                    <h1 class="brand-title">Anti-Stealer Platform</h1>
+                    <p class="brand-desc">سامانه پیشرفته ارزیابی ریسک و ممیزی نفوذ بدافزارهای سارق اطلاعات (InfoStealers)</p>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <button class="btn btn-secondary" id="resetStep1Btn" title="بازنشانی پاسخ‌های مرحله ۱">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="1 4 1 10 7 10"></polyline>
+                        <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+                    </svg>
+                    <span>بازنشانی مرحله</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Multi-Step Stepper Navigation -->
+    <nav class="stepper-nav">
+        <div class="container">
+            <ul class="stepper-list">
+                <li class="step-item active" id="stepNavItem-1">
+                    <span class="step-badge" id="stepBadge-1">۱</span>
+                    <div class="step-info">
+                        <span class="step-name">مرحله ۱: سنجش شناخت راه‌های نفوذ</span>
+                        <span class="step-status" id="stepStatus-1">در حال ارزیابی</span>
+                    </div>
+                </li>
+                <li class="step-divider"></li>
+                <li class="step-item" id="stepNavItem-2">
+                    <span class="step-badge" id="stepBadge-2">۲</span>
+                    <div class="step-info">
+                        <span class="step-name">مرحله ۲: پایش وضعیت و تنظیمات امنیتی</span>
+                        <span class="step-status" id="stepStatus-2">قفل شده</span>
+                    </div>
+                </li>
+                <li class="step-divider"></li>
+                <li class="step-item" id="stepNavItem-3">
+                    <span class="step-badge" id="stepBadge-3">۳</span>
+                    <div class="step-info">
+                        <span class="step-name">مرحله ۳: واکنش به حادثه و اقدامات پیشگیرانه</span>
+                        <span class="step-status" id="stepStatus-3">قفل شده</span>
+                    </div>
+                </li>
+                <li class="step-divider"></li>
+                <li class="step-item" id="stepNavItem-4">
+                    <span class="step-badge" id="stepBadge-4">Σ</span>
+                    <div class="step-info">
+                        <span class="step-name">کارنامه نهایی و تجمیع امتیازات</span>
+                        <span class="step-status" id="stepStatus-4">مرحله پایانی</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <main class="container">
+        
+        <!-- STEP 1 VIEW -->
+        <div id="step1View">
+            
+            <!-- Phase 1 Banner -->
+            <section class="phase-banner">
+                <div class="phase-title-group">
+                    <h2>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary);">
+                            <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                            <polyline points="2 17 12 22 22 17"></polyline>
+                            <polyline points="2 12 12 17 22 12"></polyline>
+                        </svg>
+                        <span>مرحله ۱: ممیزی میزان شناخت و مواجهه با بردار‌های حمله</span>
+                    </h2>
+                    <p>سطح آشنایی و سابقه مواجهه خود را با هر یک از راه‌های ورود استیلرها مشخص کنید تا امتیاز مرحله اول ثبت شود.</p>
+                </div>
+
+                <div class="phase-progress-box">
+                    <div class="progress-bar-wrap">
+                        <div class="progress-bar-fill" id="step1ProgressBar"></div>
+                    </div>
+                    <div class="progress-info">
+                        <div class="progress-num"><span id="assessedCount">0</span>/<span id="totalVectorsCount">19</span></div>
+                        <div class="progress-label" id="progressPercentageLabel">۰٪ تکمیل شده</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Filters & Search -->
+            <section class="controls-bar">
+                <div class="filter-group" id="categoryFilters">
+                    <!-- Populated via JS -->
+                </div>
+
+                <div class="search-box">
+                    <span class="search-icon">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </span>
+                    <input type="text" id="searchInput" class="search-input" placeholder="جستجوی بردار حمله یا نام بدافزار...">
+                </div>
+            </section>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.76rem; color: var(--text-muted); font-family: var(--font-mono);" id="step1DisplayMeta">
+                <span>نمایش ۱۹ از ۱۹ بردار نفوذ</span>
+            </div>
+
+            <!-- Vectors Audit List -->
+            <section class="vector-list" id="vectorList">
+                <!-- Dynamically populated via JS -->
+            </section>
+
+            <!-- Phase 1 Completion Footer -->
+            <section class="phase-footer">
+                <div class="footer-summary">
+                    <div class="score-display-pill">
+                        <div class="score-val" id="footerStep1Score">۰</div>
+                        <div class="score-lbl">امتیاز مرحله ۱ (از ۱۰۰)</div>
+                    </div>
+                    <div class="footer-text">
+                        <h4 id="footerStatusTitle">در حال ارزیابی موارد مرحله ۱</h4>
+                        <p id="footerStatusDesc">برای تکمیل مرحله اول، باید تمام ۱۹ بردار مشخص شوند.</p>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" id="completeStep1Btn" disabled>
+                    <span>ثبت نهایی مرحله ۱ و انتقال به مرحله ۲</span>
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
+            </section>
+        </div>
+
+        <!-- STEP 2 VIEW (Asset Hardening & System Exposure Audit) -->
+        <div id="step2View" style="display: none;">
+            
+            <!-- Phase 2 Banner -->
+            <section class="phase-banner">
+                <div class="phase-title-group">
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                        <span class="brand-badge" style="background: var(--success-subtle); color: var(--success); border-color: rgba(16, 185, 129, 0.3);">
+                            مرحله ۱ تکمیل شد
+                        </span>
+                        <span style="font-size: 0.8rem; font-family: var(--font-mono); color: var(--text-muted);" id="step1ConfirmedScoreText">
+                            امتیاز مرحله ۱: ۰ از ۱۰۰
+                        </span>
+                    </div>
+                    <h2>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--crimson);">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        </svg>
+                        <span>مرحله ۲: ممیزی وضعیت دارایی‌ها و پیکربندی امنیتی سیستم</span>
+                    </h2>
+                    <p>بررسی ۲۹ مؤلفه کلیدی آسیب‌پذیری در ۵ حوزه اصلی: مرورگرها، فایل‌های محلی، پیام‌رسان‌ها، سیستم‌عامل و مدیریت هویت.</p>
+                </div>
+
+                <div class="phase-progress-box">
+                    <div class="progress-bar-wrap">
+                        <div class="progress-bar-fill" id="step2ProgressBar"></div>
+                    </div>
+                    <div class="progress-info">
+                        <div class="progress-num"><span id="step2AssessedCount">0</span>/<span id="step2TotalCount">29</span></div>
+                        <div class="progress-label" id="step2ProgressLabel">۰٪ بررسی شده</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Filters & Search for Step 2 -->
+            <section class="controls-bar">
+                <div class="filter-group" id="step2CategoryFilters">
+                    <!-- Populated via JS -->
+                </div>
+
+                <div class="search-box">
+                    <span class="search-icon">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </span>
+                    <input type="text" id="step2SearchInput" class="search-input" placeholder="جستجو در چک‌لیست دارایی‌ها و پیکربندی...">
+                </div>
+            </section>
+
+            <!-- Step 2 Audit Items List -->
+            <section class="vector-list" id="step2List">
+                <!-- Dynamically populated via JS -->
+            </section>
+
+            <!-- Phase 2 Footer Action Bar -->
+            <section class="phase-footer">
+                <div class="footer-summary">
+                    <div class="score-display-pill">
+                        <div class="score-val" id="footerStep2Score">۰</div>
+                        <div class="score-lbl">امتیاز مرحله ۲ (از ۱۰۰)</div>
+                    </div>
+                    <div class="footer-text">
+                        <h4 id="footerStep2StatusTitle">در حال بررسی مؤلفه‌های مرحله ۲</h4>
+                        <p id="footerStep2StatusDesc">برای تکمیل این مرحله، تمام ۲۹ بررسی را علامت‌گذاری فرمایید.</p>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <button class="btn btn-secondary" id="backToStep1Btn">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                        <span>بازگشت به مرحله ۱</span>
+                    </button>
+                    <button class="btn btn-primary" id="completeStep2Btn" disabled>
+                        <span>ثبت نهایی مرحله ۲ و انتقال به مرحله ۳</span>
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                        </svg>
+                    </button>
+                </div>
+            </section>
+        </div>
+
+        <!-- STEP 3 VIEW (Incident Response, Containment & Recovery Readiness) -->
+        <div id="step3View" style="display: none;">
+            
+            <!-- Phase 3 Banner -->
+            <section class="phase-banner">
+                <div class="phase-title-group">
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                        <span class="brand-badge" style="background: var(--success-subtle); color: var(--success); border-color: rgba(16, 185, 129, 0.3);">
+                            مراحل ۱ و ۲ با موفقیت تکمیل شدند
+                        </span>
+                        <span style="font-size: 0.8rem; font-family: var(--font-mono); color: var(--text-muted);" id="step1And2ScoresText">
+                            مرحله ۱: ۰% | مرحله ۲: ۰%
+                        </span>
+                    </div>
+                    <h2>
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--crimson);">
+                            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+                        </svg>
+                        <span>مرحله ۳: ممیزی واکنش به حادثه، مهار نفوذ و بازیابی</span>
+                    </h2>
+                    <p>سنجش میزان آمادگی عملیاتی و پروتکل‌های اضطراری در ۱۶ مؤلفه بحرانی پس از مواجهه با بدافزار و نشت داده.</p>
+                </div>
+
+                <div class="phase-progress-box">
+                    <div class="progress-bar-wrap">
+                        <div class="progress-bar-fill" id="step3ProgressBar"></div>
+                    </div>
+                    <div class="progress-info">
+                        <div class="progress-num"><span id="step3AssessedCount">0</span>/<span id="step3TotalCount">16</span></div>
+                        <div class="progress-label" id="step3ProgressLabel">۰٪ بررسی شده</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Filters & Search for Step 3 -->
+            <section class="controls-bar">
+                <div class="filter-group" id="step3CategoryFilters">
+                    <!-- Populated via JS -->
+                </div>
+
+                <div class="search-box">
+                    <span class="search-icon">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </span>
+                    <input type="text" id="step3SearchInput" class="search-input" placeholder="جستجو در پروتکل‌های واکنش به رخداد...">
+                </div>
+            </section>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font-size: 0.76rem; color: var(--text-muted); font-family: var(--font-mono);" id="step3DisplayMeta">
+                <span>نمایش ۱۶ از ۱۶ پروتکل بحران</span>
+            </div>
+
+            <!-- Step 3 Audit Items List -->
+            <section class="vector-list" id="step3List">
+                <!-- Dynamically populated via JS -->
+            </section>
+
+            <!-- Phase 3 Footer Action Bar -->
+            <section class="phase-footer">
+                <div class="footer-summary">
+                    <div class="score-display-pill">
+                        <div class="score-val" id="footerStep3Score">۰</div>
+                        <div class="score-lbl">امتیاز مرحله ۳ (از ۱۰۰)</div>
+                    </div>
+                    <div class="footer-text">
+                        <h4 id="footerStep3StatusTitle">در حال بررسی مؤلفه‌های مرحله ۳</h4>
+                        <p id="footerStep3StatusDesc">برای تکمیل این مرحله و صدور کارنامه نهایی، تمام ۱۶ پروتکل را ارزیابی فرمایید.</p>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <button class="btn btn-secondary" id="backToStep2Btn">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                        <span>بازگشت به مرحله ۲</span>
+                    </button>
+                    <button class="btn btn-primary" id="completeStep3Btn" disabled>
+                        <span>ثبت نهایی مرحله ۳ و صدور کارنامه کل</span>
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                        </svg>
+                    </button>
+                </div>
+            </section>
+        </div>
+
+        <!-- STEP 4 VIEW (Final Comprehensive Audit & Executive Certificate) -->
+        <div id="step4View" style="display: none;">
+            
+            <!-- Executive Certificate Header -->
+            <section class="phase-banner" style="border-right: 4px solid var(--crimson); background: linear-gradient(135deg, rgba(17,17,24,0.95), rgba(11,11,16,0.98));">
+                <div class="phase-title-group">
+                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
+                        <span class="brand-badge" style="background: rgba(220,38,38,0.18); color: #f87171; border-color: rgba(220,38,38,0.4);">
+                            EXECUTIVE AUDIT SUMMARY // AS-SEC-2026
+                        </span>
+                        <span style="font-size: 0.78rem; font-family: var(--font-mono); color: var(--text-muted);" id="finalReportTimestamp">
+                            تاریخ ممیزی: ثبت شده
+                        </span>
+                    </div>
+                    <h2>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--crimson);">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                        </svg>
+                        <span>کارنامه جامع و شاخص کل تاب‌آوری در برابر اینفواستیلرها</span>
+                    </h2>
+                    <p>گزارش تفصیلی حاصل از ممیزی ۶۴ مؤلفه امنیتی در ۳ مرحله تخصصی: شناخت تهدیدات، استحکام دارایی‌ها و واکنش به بحران.</p>
+                </div>
+
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <button class="btn btn-secondary" id="printReportBtn">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                            <rect x="6" y="14" width="12" height="8"></rect>
+                        </svg>
+                        <span>چاپ / ذخیره PDF</span>
+                    </button>
+                    <button class="btn btn-primary" id="copyFinalReportBtn">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                        </svg>
+                        <span>کپی متن گزارش</span>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Grand Overall Score Card -->
+            <section style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 28px; margin-bottom: 24px; display: grid; grid-template-columns: 200px 1fr; gap: 28px; align-items: center;" id="grandScoreHero">
+                <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; border-left: 1px solid var(--border-color); padding-left: 20px;">
+                    <div style="width: 130px; height: 130px; border-radius: 50%; background: radial-gradient(circle, rgba(220,38,38,0.15) 0%, rgba(11,11,16,0.9) 70%); border: 3px solid var(--crimson); display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 0 25px rgba(220,38,38,0.35);">
+                        <div style="font-size: 2.4rem; font-weight: 900; font-family: var(--font-mono); color: #fff; line-height: 1;" id="finalOverallScoreVal">۰</div>
+                        <div style="font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-mono); margin-top: 2px;">از ۱۰۰</div>
+                    </div>
+                    <div style="margin-top: 10px; font-size: 0.76rem; color: var(--text-muted); font-family: var(--font-mono);">امتیاز تجمیعی کل</div>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <span class="brand-badge" id="finalSecurityTierBadge" style="font-size: 0.8rem; padding: 4px 12px;">در حال ارزیابی</span>
+                        <span style="font-size: 0.82rem; color: var(--text-muted); font-family: var(--font-mono);">وضعیت تاب‌آوری سایبری پایانی</span>
+                    </div>
+                    <h3 style="font-size: 1.25rem; font-weight: 800; color: #fff;" id="finalVerdictTitle">خلاصه وضعیت امنیتی</h3>
+                    <p style="font-size: 0.86rem; color: var(--text-secondary); line-height: 1.6;" id="finalVerdictDesc">
+                        تحلیل کامل نتایج نشان‌دهنده میزان آمادگی شما در برابر تهدیدات سرقت داده است.
+                    </p>
+                </div>
+            </section>
+
+            <!-- 3 Stages Breakdown Grid -->
+            <section style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 24px;" id="stagesBreakdownGrid">
+                
+                <!-- Stage 1 Breakdown -->
+                <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 20px; display: flex; flex-direction: column; justify-content: space-between; gap: 12px;">
+                    <div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                            <span class="vector-category-tag">مرحله ۱ (وزن ۳۰٪)</span>
+                            <span style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--text-muted);">۱۹ بردار</span>
+                        </div>
+                        <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--text-primary);">شناخت راه‌های ورود</h4>
+                        <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 4px;">آگاهی از تکنیک‌ها، مهندسی اجتماعی و ترفندهای انتقال استیلرها.</p>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: baseline; border-top: 1px solid var(--border-subtle); padding-top: 12px;">
+                        <div style="font-size: 1.5rem; font-weight: 800; font-family: var(--font-mono); color: #f87171;" id="finalStep1ScorePill">۰%</div>
+                        <button class="link-btn" id="reviewStep1Btn">بازبینی مرحله ۱ ←</button>
+                    </div>
+                </div>
+
+                <!-- Stage 2 Breakdown -->
+                <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 20px; display: flex; flex-direction: column; justify-content: space-between; gap: 12px;">
+                    <div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                            <span class="vector-category-tag">مرحله ۲ (وزن ۴۰٪)</span>
+                            <span style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--text-muted);">۲۹ مؤلفه</span>
+                        </div>
+                        <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--text-primary);">استحکام دارایی‌ها و سیستم</h4>
+                        <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 4px;">عایق‌بندی مرورگرها، پسوردها، فایل‌ها، پیام‌رسان‌ها و ویندوز.</p>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: baseline; border-top: 1px solid var(--border-subtle); padding-top: 12px;">
+                        <div style="font-size: 1.5rem; font-weight: 800; font-family: var(--font-mono); color: #f87171;" id="finalStep2ScorePill">۰%</div>
+                        <button class="link-btn" id="reviewStep2Btn">بازبینی مرحله ۲ ←</button>
+                    </div>
+                </div>
+
+                <!-- Stage 3 Breakdown -->
+                <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 20px; display: flex; flex-direction: column; justify-content: space-between; gap: 12px;">
+                    <div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                            <span class="vector-category-tag">مرحله ۳ (وزن ۳۰٪)</span>
+                            <span style="font-size: 0.75rem; font-family: var(--font-mono); color: var(--text-muted);">۱۶ پروتکل</span>
+                        </div>
+                        <h4 style="font-size: 0.95rem; font-weight: 700; color: var(--text-primary);">مهار نفوذ و واکنش به بحران</h4>
+                        <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 4px;">سرعت عمل در قطع شبکه، ابطال سراسری سشن‌ها و ریکاوری پاک.</p>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: baseline; border-top: 1px solid var(--border-subtle); padding-top: 12px;">
+                        <div style="font-size: 1.5rem; font-weight: 800; font-family: var(--font-mono); color: #f87171;" id="finalStep3ScorePill">۰%</div>
+                        <button class="link-btn" id="reviewStep3Btn">بازبینی مرحله ۳ ←</button>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- Priority Remediation Directive Roadmap -->
+            <section style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 24px; margin-bottom: 24px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                    <h3 style="font-size: 1.05rem; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 8px;">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--crimson);">
+                            <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                            <line x1="12" y1="9" x2="12" y2="13"></line>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        </svg>
+                        <span>نقشه راه اقدامات فوری و نقاط بحرانی شناسایی‌شده:</span>
+                    </h3>
+                    <span style="font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono);" id="finalRemediationCountLabel">۰ مورد نیازمند اصلاح</span>
+                </div>
+
+                <div class="vector-list" id="finalRemediationList">
+                    <!-- Populated via JS with lowest scoring items -->
+                </div>
+            </section>
+
+            <!-- Footer Reset Button -->
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 0;">
+                <button class="btn btn-secondary" id="restartFullAuditBtn">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="1 4 1 10 7 10"></polyline>
+                        <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+                    </svg>
+                    <span>بازنشانی کامل پلتفرم و شروع مجدد ممیزی</span>
+                </button>
+                <div style="font-size: 0.76rem; color: var(--text-muted); font-family: var(--font-mono);">
+                    Anti-Stealer Security Suite • Certified Framework
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Technical Details Modal -->
+    <div class="modal-overlay" id="techModal">
+        <div class="modal-content">
+            <button class="modal-close-btn" id="closeTechModalBtn">&times;</button>
+            <div class="modal-header">
+                <div style="font-size: 0.75rem; color: var(--text-muted); font-family: var(--font-mono); margin-bottom: 2px;" id="modalCategoryTag">CATEGORY</div>
+                <h3 class="modal-title" id="modalTitle">عنوان بردار</h3>
+                <div class="modal-subtitle" id="modalSubtitle">English Subtitle</div>
+            </div>
+
+            <div class="section-block">
+                <h4 class="section-heading">تحلیل فنی مکانیزم نفوذ:</h4>
+                <div class="section-text" id="modalMechanism"></div>
+            </div>
+
+            <div class="section-block" id="modalMalwareBlock">
+                <h4 class="section-heading">بدافزارهای فعال شناسایی‌شده با این بردار:</h4>
+                <div class="tag-cloud" id="modalMalwareTags"></div>
+            </div>
+
+            <div class="section-block" id="modalRedFlagsBlock">
+                <h4 class="section-heading">نشانه‌های مشکوک و شاخص‌های مخاطره (Red Flags):</h4>
+                <ul class="bullet-list danger" id="modalRedFlags"></ul>
+            </div>
+
+            <div class="section-block" id="modalDefensesBlock">
+                <h4 class="section-heading">دستورالعمل پیشگیری و ایمن‌سازی:</h4>
+                <ul class="bullet-list success" id="modalDefenses"></ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notice -->
+    <div class="toast-notice" id="toastNotice">وضعیت بروزرسانی شد</div>
+
+    <!-- Scripts -->
+    <script src="vectors.js"></script>
+    <script src="step2_data.js"></script>
+    <script src="step3_data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
